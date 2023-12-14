@@ -5,8 +5,8 @@ public class Database {
     Connection linkDatabase;
     String databaseName = "coffeeshop";
     String user = "root";
-    String password = "thienhuu098";
-    String URL = "jdbc:mysql://localhost/" + databaseName; 
+    String password = "root";
+    String URL = "jdbc:mysql://127.0.0.1:3306/" + databaseName;
 
     public Database(){}
 

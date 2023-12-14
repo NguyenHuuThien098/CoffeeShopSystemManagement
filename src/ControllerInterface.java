@@ -81,9 +81,11 @@ public class ControllerInterface {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
     private boolean validLogin() {
+        boolean loginSuccessful = false;
+
         String verifyLogin = "SELECT COUNT(1), admin_username, role FROM admin_account WHERE admin_username = '" + adminUsernameTextField.getText().trim() + "' AND admin_password = BINARY '" + adminPasswordField.getText() + "'";
         try {
             Statement statement = connectDb.createStatement();
@@ -95,17 +97,45 @@ public class ControllerInterface {
                     admin.setCurrentAdminRole(queryResult.getString("role"));
                     admin.ActiveStatus();
                     accIsTrue = true;
+                    loginSuccessful = true;
                 } else {
                     invalidLoginLabel.setText("Invalid Login. Please try again.");
                     adminUsernameTextField.setText("");
                     adminPasswordField.setText("");
                     accIsTrue = false;
+                    loginSuccessful = true;
                 }
             }
         } catch (Exception e) {
             invalidLoginLabel.setText("Failed to connect to the SERVER!");
         }
 
-        return accIsTrue;
+        return loginSuccessful;
     }
+//    @FXML
+//    private boolean validLogin() {
+//        String verifyLogin = "SELECT COUNT(1), admin_username, role FROM admin_account WHERE admin_username = '" + adminUsernameTextField.getText().trim() + "' AND admin_password = BINARY '" + adminPasswordField.getText() + "'";
+//        try {
+//            Statement statement = connectDb.createStatement();
+//            ResultSet queryResult = statement.executeQuery(verifyLogin);
+//
+//            while (queryResult.next()) {
+//                if (queryResult.getInt(1) == 1){
+//                    admin.setCurrentAdmin(queryResult.getString("admin_username"));
+//                    admin.setCurrentAdminRole(queryResult.getString("role"));
+//                    admin.ActiveStatus();
+//                    accIsTrue = true;
+//                } else {
+//                    invalidLoginLabel.setText("Invalid Login. Please try again.");
+//                    adminUsernameTextField.setText("");
+//                    adminPasswordField.setText("");
+//                    accIsTrue = false;
+//                }
+//            }
+//        } catch (Exception e) {
+//            invalidLoginLabel.setText("Failed to connect to the SERVER!");
+//        }
+//
+//        return accIsTrue;
+//    }
 }
